@@ -7,50 +7,124 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 24px;
             line-height: 1.6;
+            color: #222;
         }
         .command {
-            background-color: #f4f4f4;
-            padding: 10px;
+            background-color: #f8f9fb;
+            padding: 12px;
             margin: 10px 0;
-            border-radius: 5px;
+            border-radius: 6px;
+            border: 1px solid #e6eef6;
         }
         .command code {
             font-family: 'Courier New', Courier, monospace;
-            color: #333;
+            color: #0b3d91;
+            font-weight: 600;
         }
         h1 {
-            color: #2c3e50;
+            color: #153e75;
             text-align: center;
+            margin-bottom: 8px;
         }
         h2 {
-            color: #3498db;
+            color: #0b6fb2;
+            margin-top: 20px;
+        }
+        pre.example {
+            background: #0f1724;
+            color: #e6eef8;
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+        }
+        .note {
+            font-size: 0.95em;
+            color: #444;
+            margin-top: 6px;
+        }
+        .muted {
+            color: #666;
+            font-size: 0.95em;
         }
     </style>
 </head>
 <body>
     <h1>Essential Git Commands Guide</h1>
+    <p class="muted">Short examples included for common workflows.</p>
+
+    <h2>Quick checks</h2>
+    <div class="command">
+        <code>git --version</code> - Show installed Git version
+        <div class="note">Use this to confirm Git is available on your machine.</div>
+        <pre class="example">$ git --version
+git version 2.42.0</pre>
+    </div>
 
     <h2>Repository Setup</h2>
     <div class="command">
         <code>git init</code> - Initialize a new Git repository
+        <pre class="example">$ git init
+Initialized empty Git repository in /path/to/repo/.git/</pre>
     </div>
     <div class="command">
         <code>git clone [url]</code> - Clone a repository from a remote source
+        <pre class="example">$ git clone https://github.com/user/repo.git
+Cloning into 'repo'...</pre>
     </div>
 
     <h2>Basic Commands</h2>
     <div class="command">
         <code>git status</code> - Check the status of your working directory
+        <pre class="example">$ git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+    new-file.txt</pre>
     </div>
+
     <div class="command">
-        <code>git add [file]</code> - Add files to staging area
+        <code>git add [file]</code> - Add a specific file to the staging area
+        <div class="note">Stage a single file before committing.</div>
+        <pre class="example">$ git add README.md
+$ git status
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+    new file: README.md</pre>
     </div>
+
     <div class="command">
-        <code>git commit -m "[message]"</code> - Commit changes with a message
+        <code>git add .</code> - Stage all changes in the current directory (new/modified files only)
+        <div class="note">Common when you want to stage all working directory changes in one step.</div>
+        <pre class="example">$ git add .
+$ git status
+Changes to be committed:
+    modified: src/app.js
+    new file: src/utils.js</pre>
+    </div>
+
+    <div class="command">
+        <code>git add -A</code> - Stage all changes including deletions
+        <div class="note">Use this to ensure deleted files are staged as well.</div>
+        <pre class="example">$ git add -A
+$ git status
+Changes to be committed:
+    deleted: old-file.txt
+    modified: index.html</pre>
+    </div>
+
+    <div class="command">
+        <code>git commit -m "[message]"</code> - Commit staged changes with a message
+        <pre class="example">$ git commit -m "Add initial project files"
+[main abc1234] Add initial project files
+ 3 files changed, 120 insertions(+), 0 deletions(-)</pre>
     </div>
 
     <h2>Branch Operations</h2>
@@ -59,12 +133,22 @@
     </div>
     <div class="command">
         <code>git branch [branch-name]</code> - Create a new branch
+        <pre class="example">$ git branch feature/login
+$ git branch
+  feature/login
+* main</pre>
     </div>
     <div class="command">
         <code>git checkout [branch-name]</code> - Switch to a branch
+        <pre class="example">$ git checkout feature/login
+Switched to branch 'feature/login'</pre>
     </div>
     <div class="command">
         <code>git merge [branch]</code> - Merge a branch into the active branch
+        <pre class="example">$ git checkout main
+$ git merge feature/login
+Updating abc1234..def5678
+Fast-forward</pre>
     </div>
 
     <h2>Remote Repository</h2>
@@ -73,9 +157,18 @@
     </div>
     <div class="command">
         <code>git push origin [branch]</code> - Push changes to remote repository
+        <pre class="example">$ git push origin main
+Enumerating objects: 10, done.
+Counting objects: 100% (10/10), done.</pre>
     </div>
     <div class="command">
         <code>git pull</code> - Update local repository with remote changes
+        <pre class="example">$ git pull origin main
+From https://github.com/user/repo
+ * branch            main       -> FETCH_HEAD
+Already up to date.</pre>
     </div>
+
+    <p class="muted">Tip: use <code>git add -p</code> to interactively stage hunks if you want finer control.</p>
 </body>
-</html></div></html>
+</html>
